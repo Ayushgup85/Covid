@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Covid-19 data</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5">Covid 19 Live Data in Table</h1>
+        
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+
+
+
+
+<table>
+  <tr>
+    <th>Total Cases</th>
+    <th>Total Deaths</th>
+    <th>Total Recovered</th>
+  </tr>
+  <tr id="data"></tr>
+  
+  
+</table>
+
+
+<button onclick="refreshData()" class="btn btn-danger btn-block mt-5">Refresh Data</button>
+    </div>
+</body>
+<script>
+   
+        init()
+
+
+        function init()
+        {
+            var url="https://api.covid19api.com/summary"
+            var data=''
+            $.get(url,function(data)
+            {
+                
+                data=`
+                <td>${data.Global.TotalConfirmed}</td>
+                <td>${data.Global.TotalDeaths}</td>
+                <td>${data.Global.TotalRecovered}</td>
+                `
+                $("#data").html(data)
+            })
+        }
+        function refreshData()
+        {
+            init()
+            clearData()
+        }
+        function clearData()
+        {
+            $("#data").empty()
+            
+        }
+  
+</script>
+</html>
